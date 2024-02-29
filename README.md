@@ -83,6 +83,3 @@ Ficamos felizes em receber contribuições! Para contribuir com o projeto Gatewa
 
 Este projeto está licenciado sob a [Licença MIT](LICENSE).
 
-```ruby
-```
-
