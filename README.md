@@ -18,44 +18,15 @@ Em seguida, execute `flutter pub get` para instalar as dependências.
 ### Enviando uma requisição
 
 ```dart
-import 'package:gateway/gateway.dart';
-import 'package:gateway/src/models/request_model.dart';
-
 void main() async {
-  final gatewayClient = GatewayClient.instance;
-
-  final request = RequestModel(
-    url: 'https://api.example.com/data',
-    method: 'GET',
+  dynamic response = await GatewayConnector.call(
+    GatewayCallDto(
+      url: 'https://kitsu.io/api/edge/anime/1',
+      typeRequest: GatewayTypeRequest.POST,
+    )
   );
-
-  final response = await gatewayClient.sendRequest(request);
   
   print(response);
-}
-```
-
-### Tratando erros
-
-```dart
-import 'package:gateway/gateway.dart';
-import 'package:gateway/src/models/request_model.dart';
-
-void main() async {
-  final gatewayClient = GatewayClient.instance;
-
-  final request = RequestModel(
-    url: 'https://api.example.com/data',
-    method: 'GET',
-  );
-
-  final result = await gatewayClient.sendRequest(request);
-
-  if (result is ResponseModel) {
-    print('Request successful: ${result.data}');
-  } else if (result is ErrorModel) {
-    print('Error occurred: ${result.message}');
-  }
 }
 ```
 
