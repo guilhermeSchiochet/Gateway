@@ -1,0 +1,3 @@
+enum CryptoAlgorithm {
+  CbcHmacSha256
+}
