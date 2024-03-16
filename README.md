@@ -8,7 +8,10 @@ Para instalar o pacote Gateway, adicione a seguinte linha ao seu arquivo `pubspe
 
 ```yaml
 dependencies:
-  gateway: ^1.0.0
+ gateway:
+    git:
+      url: https://github.com/guilhermeSchiochet/Gateway
+      ref: develop
 ```
 
 Em seguida, execute `flutter pub get` para instalar as dependências.
