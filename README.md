@@ -24,7 +24,7 @@ Em seguida, execute `flutter pub get` para instalar as dependências.
 void main() async {
   dynamic response = await GatewayConnector.call(
     GatewayCallDto(
-      url: 'https://kitsu.io/api/edge/anime/1',
+      url: '...',
       typeRequest: GatewayTypeRequest.POST,
     )
   );
