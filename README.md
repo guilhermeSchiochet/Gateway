@@ -8,9 +8,10 @@ Para instalar o pacote Gateway, adicione a seguinte linha ao seu arquivo `pubspe
 
 ```yaml
 dependencies:
- gateway:
+  gateway:
     git:
-      url: https://github.com/guilhermeSchiochet/Gateway
+      url: https://github.com/guilhermeSchiochet/Gateway.git
+      path: gateway
       ref: develop
 ```
 
