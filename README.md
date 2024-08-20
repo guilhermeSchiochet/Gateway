@@ -8,7 +8,11 @@ Para instalar o pacote Gateway, adicione a seguinte linha ao seu arquivo `pubspe
 
 ```yaml
 dependencies:
-  gateway: ^1.0.0
+  gateway:
+    git:
+      url: https://github.com/guilhermeSchiochet/Gateway.git
+      path: gateway
+      ref: develop
 ```
 
 Em seguida, execute `flutter pub get` para instalar as dependências.
@@ -18,44 +22,15 @@ Em seguida, execute `flutter pub get` para instalar as dependências.
 ### Enviando uma requisição
 
 ```dart
-import 'package:gateway/gateway.dart';
-import 'package:gateway/src/models/request_model.dart';
-
 void main() async {
-  final gatewayClient = GatewayClient.instance;
-
-  final request = RequestModel(
-    url: 'https://api.example.com/data',
-    method: 'GET',
+  dynamic response = await GatewayConnector.call(
+    GatewayCallDto(
+      url: '...',
+      typeRequest: GatewayTypeRequest.POST,
+    )
   );
-
-  final response = await gatewayClient.sendRequest(request);
   
   print(response);
-}
-```
-
-### Tratando erros
-
-```dart
-import 'package:gateway/gateway.dart';
-import 'package:gateway/src/models/request_model.dart';
-
-void main() async {
-  final gatewayClient = GatewayClient.instance;
-
-  final request = RequestModel(
-    url: 'https://api.example.com/data',
-    method: 'GET',
-  );
-
-  final result = await gatewayClient.sendRequest(request);
-
-  if (result is ResponseModel) {
-    print('Request successful: ${result.data}');
-  } else if (result is ErrorModel) {
-    print('Error occurred: ${result.message}');
-  }
 }
 ```
 
