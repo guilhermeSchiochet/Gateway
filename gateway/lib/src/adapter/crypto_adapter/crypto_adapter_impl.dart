@@ -26,8 +26,6 @@ class CryptoAdapterImpl implements CryptoAdapter {
     switch(algorithm) {
       case CryptoAlgorithm.CbcHmacSha256:
         return CryptoAdapterAesCbcHmacSha256();
-      default:
-        throw ("Crypto generator not found for algorithm");
-    }
+      }
  }
 }

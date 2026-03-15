@@ -1,18 +1,18 @@
 import 'package:gateway/src/adapter/http_request_adapter/protocol/http_request_error.dart';
 import 'package:gateway/src/services/gateway_interface_response_validator.dart';
 
-class GatewayResponseValidator extends GatewayIResponseValidator {
+class GatewayResponseValidator<T> extends GatewayIResponseValidator<T> {
   GatewayResponseValidator() : super ();
 
   @override
-  void validateResponse(Map<String, dynamic> response) {
+  void validateResponse(T response) {
     _checkNullOrEmpty(response);
     _checkTagsPresence(response);
   }
 
-  void _checkNullOrEmpty(Map<String, dynamic> response) {
+  void _checkNullOrEmpty(T response) {
     try {
-      if (response.isEmpty) {
+      if (response.toString().isEmpty) {
         throw Exception('Empty response');
       }
     } catch (error) {
@@ -20,17 +20,21 @@ class GatewayResponseValidator extends GatewayIResponseValidator {
     }
   }
 
-  void _checkTagsPresence(Map<String, dynamic> response) {
-    try {
-      final hasMsg = _containsTag(response, 'msg');
-      final hasSis = _containsTag(response, 'sis');
-      final hasCode = _containsTag(response, 'code');
+  void _checkTagsPresence(T response) {
+    if(response is Map) {
+      try {
+        final _response = Map<String, dynamic>.from(response);
 
-      if (hasMsg && hasCode && hasSis) {
-        throw _catchError(response);
+        final hasMsg = _containsTag(_response, 'msg');
+        final hasSis = _containsTag(_response, 'sis');
+        final hasCode = _containsTag(_response, 'code');
+
+        if (hasMsg && hasCode && hasSis) {
+          throw _catchError(_response);
+        }
+      } catch (error) {
+        rethrow;
       }
-    } catch (error) {
-      rethrow;
     }
   }
 

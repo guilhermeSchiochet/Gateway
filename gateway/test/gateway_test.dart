@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:gateway/src/gateway.dart';
+import 'package:gateway/gateway.dart';
 
 void main() {
   test('ensure request returns data from atende.net', () async {

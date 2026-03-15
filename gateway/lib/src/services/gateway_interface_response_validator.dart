@@ -1,3 +1,3 @@
-abstract class GatewayIResponseValidator {
-  void validateResponse(Map<String, dynamic> response);
+abstract class GatewayIResponseValidator<T> {
+  void validateResponse(T response);
 }

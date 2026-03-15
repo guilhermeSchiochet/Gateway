@@ -7,26 +7,25 @@ import 'package:gateway/src/gateway/request/gateway_request_orchestrator.dart';
 import 'package:gateway/src/services/gateway_net_message.dart';
 import 'package:gateway/src/services/gateway_response_validator.dart';
 
-class GatewayRequest implements GatewayRequestAdapter {
-  final HttpRequestAdapter _httpRequestAdapter;
-  final GatewayResponseValidator _responseValidator;
+class GatewayRequest<T> implements GatewayRequestAdapter {
+  final HttpRequestAdapter<T> _httpRequestAdapter;
+  final GatewayResponseValidator<T> _responseValidator;
 
   GatewayRequest(
     this._responseValidator,
     this._httpRequestAdapter,
   );
-  
+
   @override
-  Future<Map<String, dynamic>> call(GatewayRequestOrchestrator request) async {
+  Future<T> call(GatewayRequestOrchestrator request) async {
     final response = await _sendPostRequest(request);
-    final parsedResponse = _parseResponse(response);
 
-    _validateResponse(parsedResponse);
+    _validateResponse(response);
 
-    return parsedResponse;
+    return response;
   }
 
-  Future<String> _sendPostRequest(GatewayRequestOrchestrator request) async {
+  Future<T> _sendPostRequest(GatewayRequestOrchestrator request) async {
     switch (request.gettypeRequest()) {
       case GatewayTypeRequest.POST:
         return await _httpRequestAdapter.callPost(request.getCompleteUrl(), data: request.getBody()); 
@@ -35,11 +34,7 @@ class GatewayRequest implements GatewayRequestAdapter {
     }
   }
 
-  Map<String, dynamic> _parseResponse(String response) {
-    return json.decode(response);
-  }
-
-  void _validateResponse(Map<String, dynamic> response) {
+  void _validateResponse(T response) {
     try {
       _responseValidator.validateResponse(response);
     } on HttpRequestError catch (err) {

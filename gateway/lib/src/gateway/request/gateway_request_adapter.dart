@@ -1,5 +1,5 @@
 import 'package:gateway/src/gateway/request/gateway_request_orchestrator.dart';
 
-abstract class GatewayRequestAdapter {
-  Future<Map<String, dynamic>> call (GatewayRequestOrchestrator dto);
+abstract class GatewayRequestAdapter<T> {
+  Future<T> call (GatewayRequestOrchestrator dto);
 }
